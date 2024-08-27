@@ -7,6 +7,10 @@ import Layout from './Layout'
 import DashBoard from './DashBoard'
 import AddPage from './pages/AddPage'
 import ListItemsPage from './pages/ListItemsPage'
+import CheckOutPage from './pages/CheckOutPage'
+import ProtectRouting from './components/ProtectRouting'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
 const router=createBrowserRouter([
   {
@@ -21,11 +25,17 @@ const router=createBrowserRouter([
         path:"/cart",
         element:<Cart />
       },
+      {
+        path:"/checkout",
+        element:<CheckOutPage/>
+      }
     ]
   },
   {
     path:"/dashboard",
-    element:<DashBoard/>,
+    element:<ProtectRouting>
+      <DashBoard/>
+    </ProtectRouting>,
     children:[
       {
         path:"/dashboard/add",
@@ -39,6 +49,7 @@ const router=createBrowserRouter([
 ])
   return (
     <div>
+      <ToastContainer/>
         <RouterProvider router={router} />
     </div>
   )

@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import { assets } from '../assets/admin_assets/assets'
-import { menu_list,food_list } from '../assets/frontend_assets/assets'
+import { menu_list} from '../assets/frontend_assets/assets'
 import axios from 'axios'
-import { data } from 'autoprefixer';
 function AddPage() {
+    const apiUrl=import.meta.env.VITE_API_URL;
     const [image,setImage]=useState(null);
     const submitItem=(formData)=>{
         const config={
             method:"post",
-            url:"http://localhost:5000/api/food",
+            url:`${apiUrl}/food`,
             data:formData
         };
         axios.request(config).then(res=>{
@@ -43,7 +43,7 @@ function AddPage() {
   return (
     <div>
         {/* {<button onClick={()=>sendAll()}>send all</button>} */}
-        <form className='flex flex-col gap-8 w-1/2' onSubmit={(e)=>{
+        <form className='flex flex-col gap-8 w-full md:w-1/2' onSubmit={(e)=>{
             e.preventDefault();
             const formData=new FormData(e.target);
             submitItem(formData);
@@ -64,7 +64,7 @@ function AddPage() {
                 <label htmlFor="desc">Product description</label>
                 <textarea className='p-4 bg-gray-200' name="description" id="desc" placeholder='Write content here'></textarea>
             </div>
-            <div className='flex gap-8 w-full'> 
+            <div className='flex flex-col md:flex-row gap-8 w-full'> 
                 <div className='w-full flex flex-col gap-2'>
                     <label htmlFor="category">Choose a car:</label>
                     <select className='p-4 bg-gray-200 cursor-pointer' name="category" id="category">

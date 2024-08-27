@@ -29,8 +29,8 @@ function FoodCard({_id,name,image,price,description}) {
               }
             </div>
         </div>
-        <div className="p-4">
-            <div className="flex justify-between items-center mb-2">
+        <div className="p-2 lg:p-4">
+            <div className="flex flex-col lg:flex-row gap-2 lg:gap-0 justify-between lg:items-center mb-2">
                 <h2 className="text-2xl font-medium">{name}</h2>
                 <img className="w-28" src={assets.rating_starts} alt="" />
             </div>

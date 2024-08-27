@@ -4,6 +4,7 @@ import helmet from "helmet";
 import cors from "cors";
 import foodRouter from "./routes/food.routes.js";
 import userRouter from "./routes/user.routes.js";
+import orderRouter from "./routes/order.routes.js";
 const app = express();
 const corsOpt = {
   origin: "*",
@@ -22,3 +23,4 @@ mongoose
 
 app.use("/api", userRouter);
 app.use("/api/food", foodRouter);
+app.use("/api/order", orderRouter);
