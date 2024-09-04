@@ -1,5 +1,5 @@
 
-import { assets } from './assets/admin_assets/assets'
+import { assets } from '../assets/admin_assets/assets'
 import { Link } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
 function DashBoard() {

@@ -1,7 +1,7 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-function ProtectRouting({children}) {
+function UserProtectRouting({children}) {
     const user=useSelector(state=>state.user);
     if(!user.token || user.role!=="admin"){
         return <Navigate to={"/"}/>
@@ -11,4 +11,4 @@ function ProtectRouting({children}) {
   )
 }
 
-export default ProtectRouting
+export default UserProtectRouting

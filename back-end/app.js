@@ -23,4 +23,7 @@ mongoose
 
 app.use("/api", userRouter);
 app.use("/api/food", foodRouter);
-app.use("/api/order", orderRouter);
+app.use("/api/orders", orderRouter);
+app.get("/api/test",(req,res)=>{
+  res.json({status:true,message:"service is live"});
+})

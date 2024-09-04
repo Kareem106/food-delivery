@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import NavBar from './components/NavBar'
-import LogInPopUp from './components/LogInPopUp'
+import NavBar from '../components/NavBar'
+import LogInPopUp from '../components/LogInPopUp'
 import { Outlet } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import SideNavBar from './components/SideNavBar';
-import Footer from './components/Footer';
+import SideNavBar from '../components/SideNavBar';
+import Footer from '../components/Footer';
 function Layout() {
     const [showLogIn,setShowLogIn]=useState(false);
     const [sideBarCollapse,setSideBarCollapse]=useState(true);
@@ -14,7 +14,7 @@ function Layout() {
       <AnimatePresence>
         {!sideBarCollapse?<SideNavBar setSideBarCollapse={setSideBarCollapse} setShowLogIn={setShowLogIn}/>:null}
         </AnimatePresence>
-      <div className='lg:container mx-auto px-4 pt-20 lg:px-0'>
+      <div className='lg:container mx-auto px-4 pt-20'>
         <AnimatePresence>
         {showLogIn?<LogInPopUp setShowLogIn={setShowLogIn}/>:null}
         </AnimatePresence>

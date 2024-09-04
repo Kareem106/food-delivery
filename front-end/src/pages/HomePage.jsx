@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import FoodCard from '../components/FoodCard';
 import { motion } from 'framer-motion';
 import axios from 'axios';
-function Home() {
+function HomePage() {
     const apiUrl=import.meta.env.VITE_API_URL
     const [foodList,setFoodList]=useState([]);
     useEffect(()=>{
@@ -52,15 +52,15 @@ function Home() {
                     </div>
         </div>
         <hr />
-        <div className='py-16'>
+        <div className='py-16' id='app'>
             <h1 className='text-4xl font-bold text-center mb-12'>For better experience <br /> download the app</h1>
-            <div className='flex justify-center gap-4'>
-                <img src={assets.play_store} alt="" />
-                <img src={assets.app_store} alt="" />
+            <div className='flex flex-col md:flex-row justify-center gap-4 items-center'>
+                <img src={assets.play_store} alt="" className='w-[200px] h-[70px]'/>
+                <img src={assets.app_store} alt="" className='w-[200px] h-[70px]'/>
             </div>
         </div>
     </div>
   )
 }
 
-export default Home
+export default HomePage

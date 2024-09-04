@@ -11,19 +11,19 @@ function NavBar({setShowLogIn,setSideBarCollapse}) {
     const cartItems=useSelector(state=>state.cart);
   return (
     <div className='w-full fixed z-40 top-0 left-0 '>
-        <div className='flex items-center justify-between py-4 lg:container m-auto bg-white px-4 lg:px-0'>
+        <div className='flex items-center justify-between py-4 lg:container m-auto bg-white px-4'>
             <div>
             <Link to={"/"}><img src={assets.logo} alt="logo" /></Link>
             </div>
-            <ul className='hidden md:flex gap-4 text-lg items-center'>
+            <ul className='hidden md:flex gap-4 text-lg items-center font-medium  text-gray-500'>
                 <li>
-                    <a href={"#home"}>Home</a>
+                    <a href={"/#home"}>Home</a>
                 </li>
                 <li>
-                    <a href={"#menu"}>Menu</a>
+                    <a href={"/#menu"}>Menu</a>
                 </li>
                 <li>
-                    <a href={"/"}>Mobile-App</a>
+                    <a href={"/#app"}>Mobile-App</a>
                 </li>
             </ul>
             <div className='flex items-center gap-4 md:gap-8 relative'>
@@ -43,6 +43,12 @@ function NavBar({setShowLogIn,setSideBarCollapse}) {
                     <img className='h-[34px]  aspect-square' src="/menu.png" alt="" />
                 </button>
                 <ul className={`${collapse?"hidden":"flex"} flex-col w-[200px] gap-4 text-lg bg-gray-700 text-white p-4 rounded-lg absolute right-2 top-24 z-40`}>
+                {
+                    token?
+                    <li>
+                        <Link to={"/orders"} className='cursor-pointer hover:text-orange-500 hover:bg-white p-4 rounded-lg block w-full'>Orders</Link>
+                    </li>:null
+                }
                 {
                     token && role==="admin"?
                     <li>

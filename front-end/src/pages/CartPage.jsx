@@ -1,12 +1,14 @@
 import React, { useEffect ,useState} from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { assets } from '../assets/frontend_assets/assets';
 import axios from 'axios';
 import { AnimatePresence,motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-function Cart() {
+import { removeFromCart } from '../app/cartSlice';
+function CartPage() {
+    const dispatch=useDispatch();
     const navigate=useNavigate();
     const token=useSelector(state=>state.user.token);
     const apiUrl=import.meta.env.VITE_API_URL;
@@ -44,7 +46,7 @@ function Cart() {
         {cart.length>0?
         <div>
                     <div>
-            <table className='w-full text-center mb-12'>
+            <table className='w-full text-center mb-12 overflow-hidden'>
                 <tr className='*:p-4 border-b-2 border-gray-200 text-gray-500'>    
                     <th className='p-4'>Item</th>
                     <th>Title</th>
@@ -61,7 +63,7 @@ function Cart() {
                             <td>${item.price}</td>
                             <td>{item.quantity}</td>
                             <td>${item.quantity*item.price}</td>
-                            <td><img src={assets.remove_icon_red} alt="" className='w-8 block m-auto cursor-pointer'/></td>
+                            <td><img src={assets.remove_icon_red} alt="" className='w-8 block m-auto cursor-pointer' onClick={()=>dispatch(removeFromCart(item._id))}/></td>
                         </motion.tr>))}
                 </AnimatePresence>
             </table>
@@ -98,4 +100,4 @@ function Cart() {
   )
 }
 
-export default Cart
+export default CartPage

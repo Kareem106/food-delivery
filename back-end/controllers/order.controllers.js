@@ -35,8 +35,8 @@ const placeOrder = async (req, res) => {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: line_items,
-      success_url: front_url,
-      cancel_url: front_url,
+      success_url: `${front_url}/orders/${order._id}/verify?success=true`,
+      cancel_url: `${front_url}/orders/${order._id}/verify?success=false`,
     });
     res.json({ id: session.id, url: session.url, status: true });
   } catch (err) {
@@ -45,5 +45,73 @@ const placeOrder = async (req, res) => {
       .json({ status: false, message: "Failed to place the order" });
   }
 };
-
-export { placeOrder };
+const user_orders_get=async(req,res)=>{
+  try{
+    const userId=req.userId;
+    const orders=await orderModel.find({userId});
+    if(!orders)
+      throw Error("couldn't find user's orders");
+    res.json({
+      status:true,
+      message:"orders fetched successfully",
+      orders
+    })
+  }catch(e){
+    console.log(e);
+    req.status(404).json({status:false,message:e.message});
+  }
+}
+const all_orders_get=async(req,res)=>{
+  try{
+    const orders=await orderModel.find();
+    if(!orders){
+      throw Error("Couldn't fetch orders")
+    };
+    res.json({
+      status:true,
+      message:"Orders fetched successfully",
+      orders
+    });
+  }catch(err){
+    console.log(err);
+    req.status(400).json({status:false,message:err.message});
+  }
+};
+const order_status_put=async(req,res)=>{
+  try{
+    const orderId=req.params.id;
+    const status=req.body.status;
+    const order=await orderModel.findByIdAndUpdate(orderId,{status:status},{new:true});
+    if(!order){
+      throw Error("Order not found");
+    }
+    res.status(201).json({status:true,message:"order updated",order});
+  }catch(err){
+    console.log(err);
+    res.status(404).json({status:false,message:err.message});
+  }
+};
+const verify_order=async(req,res)=>{
+  const {id}=req.params;
+  const {success}=req.query;
+  try{
+  const order=await orderModel.findById(id);
+  if(!order){
+    throw Error("Couldn't find the order");
+  }
+  if(success=="true"){
+    order.payment=true;
+    await order.save();
+    res.json({status:true,message:"order verified",order});
+  }else{
+    await orderModel.deleteOne({_id:id});
+    res.json({status:true,message:"order deleted"});
+  }
+}catch(err){
+  if(err.message.includes("Cast to ObjectId")){
+    err.message="Invalid order id";
+  }
+  res.status(404).json({status:false,message:err.message});
+}
+}
+export { placeOrder,user_orders_get,all_orders_get,order_status_put ,verify_order};

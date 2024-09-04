@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useState,useEffect } from 'react';
 import { useFormik } from 'formik';
-import { Navigate } from 'react-router-dom';
 function CheckOutPage() {
   const apiUrl=import.meta.env.VITE_API_URL;
   const token=useSelector(state=>state.user.token);
@@ -23,7 +22,7 @@ function CheckOutPage() {
   const submiteHandler=(values)=>{
     const config={
       method:"post",
-      url:`${apiUrl}/order/checkout`,
+      url:`${apiUrl}/orders/checkout`,
       headers:{'Content-Type':'application/json',"Authorization":`Bearer ${token}`},
       data:{
         items:cart,
@@ -43,9 +42,6 @@ function CheckOutPage() {
     onSubmit:submiteHandler,
   }
   );
-  if(!token){
-    return <Navigate to={"/cart"}/>
-  }
   return (
     <div>
       <div className='flex justify-between pt-8'>

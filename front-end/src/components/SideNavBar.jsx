@@ -13,21 +13,30 @@ function SideNavBar({setSideBarCollapse,setShowLogIn}) {
             <motion.div initial={{width:0}} animate={{width:"70%"}} exit={{width:0}}  className='h-full bg-white flex flex-col w-full justify-between'>
                 <div className='p-4' >
                     <ul className="flex-col gap-4 text-lg text-black  rounded-lg mb-8">
-                        <a href='#home'>
+                        <a href='/#home'>
                             <li className='cursor-pointer hover:text-orange-500 hover:bg-white p-4 rounded-lg w-full'>
                                 Home
                             </li>
                         </a>
-                        <a href={'#menu'}>
+                        <a href={'/#menu'}>
                             <li className='cursor-pointer hover:text-orange-500 hover:bg-white p-4 rounded-lg w-full'>
                                 Menu
                             </li>
                         </a>
-                        <a href={'#menu'}>
+                        <a href={'/#app'}>
                             <li className='cursor-pointer hover:text-orange-500 hover:bg-white p-4 rounded-lg w-full'>
                                 Mobile-App
                             </li>
                         </a>
+                        {
+                            user?.token?
+                            <Link to={"/orders"}>
+                                <li className='cursor-pointer hover:text-orange-500 hover:bg-white p-4 rounded-lg w-full'>
+                                orders
+                            </li>
+                            </Link>:
+                            null
+                        }
                         {
                             user.role==="admin"?
                             <Link to={"/dashboard"}>
